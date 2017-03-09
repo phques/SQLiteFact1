@@ -105,9 +105,11 @@ namespace SQLiteFact1
                         {
                             while (reader.Read())
                             {
-                                Language la = new Language();
-                                la.LangTitle = reader["LangTitle"].ToString();
-                                la.Id = Int32.Parse(reader["Id"].ToString());
+                                Language la = new Language()
+                                {
+                                    LangTitle = reader["LangTitle"].ToString(),
+                                    Id = Int32.Parse(reader["Id"].ToString())
+                                };
                                 langs.Add(la);
                             }
                         }
@@ -115,7 +117,7 @@ namespace SQLiteFact1
                     conn.Close();
                 }
             }
-            catch (DbException e)
+            catch (DbException)
             {
                 //...
             }

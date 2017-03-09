@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.SQLite;
 
 namespace SQLiteFact1
 {
@@ -28,7 +29,6 @@ namespace SQLiteFact1
 
         public int CreateLangTable()
         {
-            //SQLiteConnection.CreateFile("langDB.sqlite");
             int result = -1;
             using (DbConnection conn = dbProviderFactory.CreateConnection())
             {
@@ -130,6 +130,9 @@ namespace SQLiteFact1
 
         static void Main(string[] args)
         {
+            // (re)create the dtabase from scratch
+            SQLiteConnection.CreateFile("langDB.sqlite");
+
             var toto = new Toto();
             toto.CreateLangTable();
 
@@ -139,7 +142,10 @@ namespace SQLiteFact1
             toto.AddLang("ststh");       // 4
 
             var lls = toto.GetLanguages(0);
-
+            foreach (var lang in lls)
+            {
+                Console.WriteLine("{0} {1}", lang.Id, lang.LangTitle);
+            }
         }
     }
 }
